@@ -1,0 +1,35 @@
+- name: Configure Web Server
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Apache (Amazon Linux)
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Start and Enable Apache service(Ubunut)
+      service:
+        name: apache2
+        state: started
+        enabled: true
+      when: ansible_os_family == "Debian"
+
+    - name: Start and enable Apache servive (Amazon Linux)
+      service:
+        name: httpd
+        state: started
+        enabled: true
+      when: ansible_os_family == "RedHat"
+    
+    - name: Copy a simple HTML file
+      copy:
+        dest: /var/www/html/index.html
+        content: "<h1>Deployed by Ansible!</h1>"
