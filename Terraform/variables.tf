@@ -17,6 +17,6 @@ variable "vpc_security_group_ids" {
 }
 
 variable "private_key" {
-    description = "Privat key content"
+    description = "Private key content"
     type        = string
 }
