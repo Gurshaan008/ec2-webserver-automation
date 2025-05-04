@@ -10,11 +10,6 @@ variable "instance_type" {
     default     = "t2.micro"
 }
 
-variable "public_key_path" {
-    description = "Path to the public key"
-    type        = string            
-}
-
 variable "vpc_security_group_ids" {
     description = "List of the security group IDs"
     type        = list(string)
