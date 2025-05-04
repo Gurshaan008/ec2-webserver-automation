@@ -29,6 +29,13 @@ jobs:
               run: terraform init
               working-directory: Terraform
 
+            - name: Debug Terraform Files
+              run: |
+                echo "Contents of main.tf:"
+                cat Terraform/main.tf
+                echo "Contents of variables.tf:"
+                cat Terraform/varibles.tf || true
+
             - name: Terraform plan
               run: terraform plan
               working-directory: Terraform
