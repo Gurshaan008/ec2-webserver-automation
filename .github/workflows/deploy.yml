@@ -53,7 +53,7 @@ jobs:
               run: |
                 sg_id=$(aws ec2 describe-security-groups \
                   --filters Name=group-name,Values=web_server_sg \
-                  --querry 'SecurityGroup[0].GroupId --output text')
+                  --query 'SecurityGroups[0].GroupId --output text')
                 echo "sg_id=$sg_id" >> $GITHUB_ENV
                 
             - name: Terraform Import Security group
@@ -67,11 +67,7 @@ jobs:
             - name: Terraform Apply
               run: terraform apply -auto-approve -var="private_key=${{ secrets.PRIVATE_KEY}}"
               working-directory: Terraform
-
-            - name: Terraform Destroy
-              run: terraform destroy -auto-approve
-              working-directory: Terraform
-
+              
             - name: Get Instance IP
               run: |
                 terraform output -raw public_ip > ../ansible/public_ip.txt
@@ -84,7 +80,7 @@ jobs:
               run: |
                 ip=$(cat ansible/public_ip.txt)
                 echo "[web]" > ansible/inventory.ini
-                echo "$ip ansible_user=ec2-user ansible_ssh_private_key_file=ssh-key/id_rsa" >> ansible/inventory.ini
+                echo "$ip ansible_user=ec2-user ansible_ssh_private_key_file=my-key/id_rsa" >> ansible/inventory.ini
 
             - name: Debug Inventory
               run: cat ansible/inventory.ini
