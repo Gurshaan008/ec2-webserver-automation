@@ -52,13 +52,4 @@ jobs:
                 ansible-playbook -i ansible/inventory.ini ansible/webserver-setup.yml
               env:
                 ANSIBLE_HOST_KEY_CHECKING: "False"
-
-            - name: Install Terraform (again)
-              uses: hashicorp/setup-terraform@v2
-              with:
-                terraform_version: 1.5.6
-
-            - name: Clean up Resources
-              if: always()
-              run: terraform destroy -auto-approve
-              working-directory: Terraform
+                
