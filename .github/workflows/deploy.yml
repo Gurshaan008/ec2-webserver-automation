@@ -20,6 +20,14 @@ jobs:
                 echo "${{ secrets.PRIVATE_KEY }}" > my-key/id_rsa
                 chmod 600 my-key/id_rsa
 
+            - name: Verify KEY
+              run: |
+                echo "List contents of key"
+                ls -l my-key
+
+                echo "display first few lines"
+                head -n 5 my-key/id_rsa
+
             - name: Set up terraform
               uses: hashicorp/setup-terraform@v2
               with:
