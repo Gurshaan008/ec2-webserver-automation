@@ -16,7 +16,7 @@ jobs:
 
             - name: Create SSH Private Key
               run: |
-                echo "${{ secrets.PRIVATE_KEY }}" > ~ ssh-key/id_rsa
+                echo "${{ secrets.PRIVATE_KEY }}" > ssh-key/id_rsa
                 chmod 600 ssh-key/id_rsa
 
             - name: Set up terraform
@@ -52,4 +52,3 @@ jobs:
                 ansible-playbook -i ansible/inventory.ini ansible/webserver-setup.yml
               env:
                 ANSIBLE_HOST_KEY_CHECKING: "False"
-                
