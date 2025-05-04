@@ -20,9 +20,6 @@ jobs:
                 echo "${{ secrets.PRIVATE_KEY }}" > ssh-key/id_rsa
                 chmod 600 ssh-key/id_rsa
 
-            - name: Create tfvars file
-              run: echo "key_name = \"${{ secrets.AWS_KEY_PAIR_NAME }}\"" > Terraform/secrets.tfvars
-
             - name: Set up terraform
               uses: hashicorp/setup-terraform@v2
               with:
@@ -33,11 +30,11 @@ jobs:
               working-directory: Terraform
 
             - name: Terraform plan
-              run: terraform plan -var-file="secrets.tfvars"
+              run: terraform plan
               working-directory: Terraform
 
             - name: Terraform Apply
-              run: terraform apply -auto-approve -var-file="secrets.tfvars"
+              run: terraform apply -auto-approve 
               working-directory: Terraform
 
             - name: Get Instance IP
