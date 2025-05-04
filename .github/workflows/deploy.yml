@@ -36,6 +36,22 @@ jobs:
                 echo "Contents of variables.tf:"
                 cat Terraform/varibles.tf || true
 
+            - name: Terraform Import Key Pair
+              run: terraform import aws_key_pair.deployer my-key || true
+              working-directory: Terraform
+
+            - name: Get Security Group ID
+              id: get_sg
+              run: |
+                sg_id=$(aws ec2 describe-security-groups \
+                  --filters Name=group-name,Values=web_server_sg \
+                  --querry 'SecurityGroup[0].GroupId --output text')
+                echo "sg_id=$sg_id" >> $GITHUB_ENV
+                
+            - name: Terraform Import Security group
+              run: terraform import aws_security_group.web_sg ${{ env.sg_id }} || true
+              working-directory: Terraform
+
             - name: Terraform plan
               run: terraform plan -var="private_key=${{ secrets.PRIVATE_KEY}}"
               working-directory: Terraform
