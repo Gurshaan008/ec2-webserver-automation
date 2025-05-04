@@ -15,3 +15,8 @@ variable "vpc_security_group_ids" {
     type        = list(string)
     default     = []
 }
+
+variable "private_key" {
+    description = "Privat key content"
+    type        = string
+}

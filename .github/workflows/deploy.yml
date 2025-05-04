@@ -37,11 +37,11 @@ jobs:
                 cat Terraform/varibles.tf || true
 
             - name: Terraform plan
-              run: terraform plan
+              run: terraform plan -var="private_key=${{ secrets.PRIVATE_KEY}}"
               working-directory: Terraform
 
             - name: Terraform Apply
-              run: terraform apply -auto-approve 
+              run: terraform apply -auto-approve -var="private_key=${{ secrets.PRIVATE_KEY}}
               working-directory: Terraform
 
             - name: Get Instance IP
