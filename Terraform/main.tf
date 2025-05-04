@@ -1,6 +1,6 @@
 resource "aws_key_pair" "deployer" {
     key_name    = "my-key"
-    public_key  = file("ssh-key/id_rsa.pub")
+    public_key  = file("my-key/id_rsa.pub")
 
     lifecycle {
         ignore_changes = [

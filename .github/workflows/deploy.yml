@@ -17,7 +17,7 @@ jobs:
             - name: Create SSH Private Key
               run: |
                 mkdir -p ssh-key
-                echo "${{ secrets.PRIVATE_KEY }}" > ssh-key/id_rsa
+                echo "${{ secrets.PRIVATE_KEY }}" > my-key/id_rsa
                 chmod 600 ssh-key/id_rsa
 
             - name: Set up terraform
