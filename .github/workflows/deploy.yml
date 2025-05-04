@@ -74,11 +74,9 @@ jobs:
             - name: Get Instance IP
               run: |
                 ip=$(terraform output -raw public_ip)
+                echo "IP Addess: $ip"
               working-directory: Terraform
 
-            - name: Debug public IP
-              run: cat ansible/public_ip.txt
-            
             - name: Create Dynamic Inventory
               run: |
                 echo "[web]" > ansible/inventory.ini
