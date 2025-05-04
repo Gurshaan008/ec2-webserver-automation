@@ -53,9 +53,9 @@ jobs:
               run: |
                 sg_id=$(aws ec2 describe-security-groups \
                   --filters Name=group-name,Values=web_server_sg \
-                  --query 'SecurityGroups[0].GroupId \
-                  --output text')
-                  
+                  --query 'SecurityGroups[0].GroupId' \
+                  --output text)
+
                 echo "sg_id=$sg_id" >> $GITHUB_ENV
                 
             - name: Terraform Import Security group
