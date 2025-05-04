@@ -41,7 +41,7 @@ jobs:
               working-directory: Terraform
 
             - name: Terraform Apply
-              run: terraform apply -auto-approve -var="private_key=${{ secrets.PRIVATE_KEY}}
+              run: terraform apply -auto-approve -var="private_key=${{ secrets.PRIVATE_KEY}}"
               working-directory: Terraform
 
             - name: Get Instance IP
