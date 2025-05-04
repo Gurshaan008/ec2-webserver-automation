@@ -20,26 +20,26 @@ jobs:
                 chmod 600 ssh-key/id_rsa
 
             - name: Set up terraform
-              uses: hashicorp/setup-terraform@v2
+              uses: hashicorp/setup-Terraform@v2
               with:
                 terraform_version: 1.5.6
 
             - name: Terraform Init
               run: terraform init
-              working-directory: terraform
+              working-directory: Terraform
 
             - name: Terraform plan
               run: terraform plan
-              working-directory: terraform
+              working-directory: Terraform
 
             - name: Terraform Apply
               run: terraform apply -auto-approve
-              working-directory: terraform
+              working-directory: Terraform
 
             - name: Get Instance IP
               run: |
                 terraform output -raw public_ip > ../ansible/public_ip.txt
-              working-directory: terraform
+              working-directory: Terraform
             
             - name: Create Dynamic Inventory
               run: |
@@ -56,4 +56,4 @@ jobs:
             - name: Clean up Resources
               if: always()
               run: terraform destroy -auto-approve
-              working-directory: terraform
+              working-directory: Terraform
