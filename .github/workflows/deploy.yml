@@ -75,17 +75,17 @@ jobs:
               id: get_ip
               run: |
                 ip=$(terraform output -raw public_ip 2>/dev/null | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}')
-                echo "ip=$ip" >> $GITHUB_ENV
+                echo "ip=$ip" >> 
               working-directory: Terraform
 
             - name: Debug IP
               run: |
-                echo "Public Ip is ${{ env.ip }}"
+                echo "Public Ip is $ip"
 
             - name: Create Dynamic Inventory
               run: |
                 echo "[web]" > ansible/inventory.ini
-                echo "${{ env.ip }} ansible_user=ec2-user ansible_ssh_private_key_file=./my-key/id_rsa" >> ansible/inventory.ini
+                echo "$ip ansible_user=ec2-user ansible_ssh_private_key_file=./my-key/id_rsa" >> ansible/inventory.ini
 
             - name: Debug Inventory
               run: cat ansible/inventory.ini
