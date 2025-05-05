@@ -71,21 +71,14 @@ jobs:
               run: terraform apply -auto-approve -var="private_key=${{ secrets.PRIVATE_KEY}}"
               working-directory: Terraform
               
-            - name: Get Instance IP
-              id: get_ip
+            - name: Get Instance IP and create inventory
               run: |
                 ip=$(terraform output -raw public_ip 2>/dev/null | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}')
-                echo "ip=$ip" >> $GITHUB_ENV 
-              working-directory: Terraform
+                echo "Public ip is: $ip"
 
-            - name: Debug IP
-              run: |
-                echo "Public Ip is ${{ env.ip }}"
-
-            - name: Create Dynamic Inventory
-              run: |
                 echo "[web]" > ansible/inventory.ini
-                echo "${{ env.ip }} ansible_user=ec2-user ansible_ssh_private_key_file=./my-key/id_rsa" >> ansible/inventory.ini
+                echo "$ip ansible_user=ec2-user ansible_ssh_private_key_file=./my-key/id_rsa" >> ansible/inventory.ini
+              working-directory: Terraform
 
             - name: Debug Inventory
               run: cat ansible/inventory.ini
