@@ -75,7 +75,7 @@ jobs:
               id: get_ip
               run: |
                 ip=$(terraform output -raw public_ip 2>/dev/null | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}')
-                echo "ip=$ip" >> 
+                echo "ip=$ip" 
               working-directory: Terraform
 
             - name: Debug IP
