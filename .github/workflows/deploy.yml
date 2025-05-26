@@ -18,7 +18,7 @@ jobs:
               run: |
                 mkdir -p my-key
                 echo "${{ secrets.PRIVATE_KEY }}" > my-key/id_rsa
-                chmod 600 my-key/id_rsa
+                chmod 600 my-key/id.rsa
 
             - name: Verify KEY
               run: |
